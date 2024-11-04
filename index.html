@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>공부</title>
+    <style>
+        body {
+            font-size: 18px; /* 기본 글씨 크기 */
+        }
+        strong {
+            font-size: 20px; /* 질문 글씨 크기 */
+        }
+        button {
+            font-size: 18px; /* 버튼 글씨 크기 */
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            color: blue;
+        }
+    </style>
+    <script>
+        function displayResult(event) {
+            event.preventDefault(); // 폼 제출 막기
+
+            // 각 질문의 선택한 값 가져오기
+            const sleeping = document.querySelector('input[name="sleeping"]:checked').value;
+            const studycafe = document.querySelector('input[name="studycafe"]:checked').value;
+            const musicWhileStudy = document.querySelector('input[name="musicwhilestudy"]:checked').value;
+            const hakwon = document.querySelector('input[name="hakwon"]:checked').value;
+
+            // 결과를 표시할 영역
+            let resultText = "<h3>설문 결과:</h3>";
+
+            // 모든 경우에 따른 결과 출력
+            if (sleeping === "T" && studycafe === "T" && musicWhileStudy === "T" && hakwon === "T") {
+                resultText += "<p>당신이 상위권 학생일 확률은 높습니다! 시험기간 때 수면시간을 좀 줄이면서 공부를 하면 성적이 향상될 수 있습니다!</p>";
+            } else if (sleeping === "F" && studycafe === "T" && musicWhileStudy === "T" && hakwon === "T") {
+                resultText += "<p>잠이 부족하지만, 스터디카페와 학원을 다니며 음악과 함께 공부하는 것을 선호하는군요.</p>";
+            } else if (sleeping === "T" && studycafe === "F" && musicWhileStudy === "T" && hakwon === "T") {
+                resultText += "<p>잠을 충분히 자고, 학원을 다니며 음악과 함께 공부하는 것을 선호합니다.</p>";
+            } else if (sleeping === "T" && studycafe === "T" && musicWhileStudy === "F" && hakwon === "T") {
+                resultText += "<p>잠을 충분히 자고 스터디카페에서 조용히 공부하는 것을 좋아합니다.</p>";
+            } else if (sleeping === "T" && studycafe === "T" && musicWhileStudy === "T" && hakwon === "F") {
+                resultText += "<p>학원을 다니지 않지만, 스터디카페에서 음악을 들으며 공부하는 것을 선호합니다.</p>";
+            } else if (sleeping === "F" && studycafe === "F" && musicWhileStudy === "T" && hakwon === "T") {
+                resultText += "<p>잠이 부족하지만, 학원에서 음악을 들으며 공부하는 것을 선호합니다.</p>";
+            } else if (sleeping === "T" && studycafe === "F" && musicWhileStudy === "F" && hakwon === "T") {
+                resultText += "<p>잠을 충분히 자고 학원을 다니며 조용히 공부하는 것을 선호합니다.</p>";
+            } else if (sleeping === "T" && studycafe === "T" && musicWhileStudy === "F" && hakwon === "F") {
+                resultText += "<p>스터디카페에서 조용히 공부하는 것을 좋아하며, 학원을 다니지 않습니다.</p>";
+            } else if (sleeping === "T" && studycafe === "F" && musicWhileStudy === "T" && hakwon === "F") {
+                resultText += "<p>학원을 다니지 않고, 집에서 음악을 들으며 공부하는 것을 선호합니다.</p>";
+            } else if (sleeping === "F" && studycafe === "T" && musicWhileStudy === "F" && hakwon === "T") {
+                resultText += "<p>잠이 부족하고, 스터디카페에서 조용히 공부하며 학원을 다닙니다.</p>";
+            } else if (sleeping === "F" && studycafe === "T" && musicWhileStudy === "T" && hakwon === "F") {
+                resultText += "<p>스터디카페에서 음악을 들으며 공부하는 것을 좋아하고, 잠이 부족합니다.</p>";
+            } else if (sleeping === "F" && studycafe === "F" && musicWhileStudy === "T" && hakwon === "F") {
+                resultText += "<p>잠이 부족하며, 집에서 음악을 들으며 공부합니다.</p>";
+            } else if (sleeping === "F" && studycafe === "F" && musicWhileStudy === "F" && hakwon === "T") {
+                resultText += "<p>잠이 부족하며 학원을 다니고, 조용히 공부하는 것을 선호합니다.</p>";
+            } else if (sleeping === "T" && studycafe === "F" && musicWhileStudy === "F" && hakwon === "F") {
+                resultText += "<p>잠을 충분히 자고, 집에서 조용히 공부하는 것을 선호합니다.</p>";
+            } else if (sleeping === "F" && studycafe === "T" && musicWhileStudy === "F" && hakwon === "F") {
+                resultText += "<p>스터디카페에서 조용히 공부하지만, 잠이 부족합니다.</p>";
+            } else {
+                resultText += "<p>공부 습관이 다양합니다. 자신에게 맞는 방법을 유지해보세요.</p>";
+            }
+
+            // 결과 텍스트를 화면에 출력
+            document.getElementById("result").innerHTML = resultText;
+        }
+    </script>
+</head>
+<body>
+    <form onsubmit="displayResult(event)">
+        <div>
+            <strong>평균 수면시간(시험기간)</strong>
+            <input type="radio" name="sleeping" value="T"> 6시간 이상
+            <input type="radio" name="sleeping" value="F"> 6시간 미만
+        </div>
+
+        <div>
+            <strong>스터디카페 또는 독서실을</strong>
+            <input type="radio" name="studycafe" value="T"> 다닌다 
+            <input type="radio" name="studycafe" value="F"> 다니지 않는다
+        </div>
+
+        <div>
+            <strong>공부할 때 음악을</strong>
+            <input type="radio" name="musicwhilestudy" value="T"> 듣는다 
+            <input type="radio" name="musicwhilestudy" value="F"> 듣지 않는다
+        </div>
+
+        <div>
+            <strong>학원을 3개 이상</strong>
+            <input type="radio" name="hakwon" value="T"> 다닌다 
+            <input type="radio" name="hakwon" value="F"> 다니지 않는다
+        </div>
+
+        <div>
+            <button type="submit">제출</button>
+        </div>
+    </form>
+
+    <!-- 결과가 표시될 영역 -->
+    <div id="result"></div>
+</body>
+</html>
